@@ -17,6 +17,7 @@ dependencies:
   dartz: ^0.10.1
   http: ^0.13.5
   mocktail: ^0.3.0
+  bloc_test: ^9.1.0
 
 dev_dependencies:
   flutter_test:
