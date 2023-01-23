@@ -5,7 +5,7 @@ import 'package:ramft/core/errors/failures.dart';
 import 'package:ramft/features/characters/domain/repositories/characters_repository.dart';
 import 'package:ramft/features/characters/domain/usecases/get_characters_usecase.dart';
 
-import '../../../fixtures/test_models.dart';
+import '../../../../fixtures/test_models.dart';
 
 class MockCharactersRepository extends Mock implements CharactersRepository {}
 

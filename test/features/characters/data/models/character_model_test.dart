@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ramft/features/characters/data/models/character_model.dart';
 import 'package:ramft/features/characters/domain/entities/character.dart';
 
-import '../../../fixtures/fixture_reader.dart';
-import '../../../fixtures/test_models.dart';
+import '../../../../fixtures/fixture_reader.dart';
+import '../../../../fixtures/test_models.dart';
 
 void main() {
 
