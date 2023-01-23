@@ -8,6 +8,8 @@ abstract class CharactersDataSource {
   Future<List<CharacterModel>> getCharacters(int page);
 }
 
+const URL = 'https://rickandmortyapi.com/api/character/?page=';
+
 class CharactersDataSourceImpl implements CharactersDataSource {
   final http.Client client;
 
@@ -16,7 +18,7 @@ class CharactersDataSourceImpl implements CharactersDataSource {
   @override
   Future<List<CharacterModel>> getCharacters(int page) async {
     final response = await client.get(
-      Uri.parse('https://rickandmortyapi.com/api/character/?page=$page'),
+      Uri.parse('$URL$page'),
     );
 
     if (response.statusCode == 200) {

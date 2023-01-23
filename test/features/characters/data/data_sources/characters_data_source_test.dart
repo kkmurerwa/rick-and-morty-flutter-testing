@@ -21,6 +21,20 @@ void main() {
     dataSource = CharactersDataSourceImpl(mockHttpClient);
   });
 
+  test('should make a GET request with page number in URL', () async {
+    // arrange
+    when(() => mockHttpClient.get(any(), headers: any(named: 'headers')))
+        .thenAnswer((_) async => http.Response(fixture("response.json"), 200));
+
+    // act
+    dataSource.getCharacters(tPage);
+
+    // assert
+    verify(() => mockHttpClient.get(
+      Uri.parse('$URL$tPage')
+    ));
+  });
+
   test('should return a list of characters when status code is 200', () async {
     // arrange
     when(() => mockHttpClient.get(any(), headers: any(named: 'headers')))
