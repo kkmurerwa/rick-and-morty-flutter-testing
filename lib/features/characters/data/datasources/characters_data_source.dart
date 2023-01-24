@@ -13,7 +13,7 @@ const URL = 'https://rickandmortyapi.com/api/character/?page=';
 class CharactersDataSourceImpl implements CharactersDataSource {
   final http.Client client;
 
-  CharactersDataSourceImpl(this.client);
+  CharactersDataSourceImpl({required this.client});
 
   @override
   Future<List<CharacterModel>> getCharacters(int page) async {

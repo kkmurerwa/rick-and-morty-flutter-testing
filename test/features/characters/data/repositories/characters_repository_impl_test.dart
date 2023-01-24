@@ -18,7 +18,9 @@ void main() {
 
   setUpAll(() {
     mockDataSource = MockCharactersDataSource();
-    repository = CharactersRepositoryImpl(mockDataSource);
+    repository = CharactersRepositoryImpl(
+      dataSource: mockDataSource,
+    );
   });
 
   test('should query data source for data when getCharacters invoked', () async {

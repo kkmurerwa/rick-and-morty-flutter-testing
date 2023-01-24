@@ -18,7 +18,9 @@ void main() {
   setUp(() {
     mockHttpClient = MockHttpClient();
     registerFallbackValue(MockUri());
-    dataSource = CharactersDataSourceImpl(mockHttpClient);
+    dataSource = CharactersDataSourceImpl(
+      client: mockHttpClient,
+    );
   });
 
   test('should make a GET request with page number in URL', () async {

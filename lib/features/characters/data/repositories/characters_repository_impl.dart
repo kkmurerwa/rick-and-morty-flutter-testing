@@ -8,7 +8,7 @@ import 'package:ramft/features/characters/domain/repositories/characters_reposit
 class CharactersRepositoryImpl implements CharactersRepository {
   final CharactersDataSource dataSource;
 
-  CharactersRepositoryImpl(this.dataSource);
+  CharactersRepositoryImpl({required this.dataSource});
 
   @override
   Future<Either<Failure, List<Character>>> getCharacters(int page) async {

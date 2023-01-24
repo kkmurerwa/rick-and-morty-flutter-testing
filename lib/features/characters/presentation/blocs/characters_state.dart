@@ -8,6 +8,8 @@ abstract class CharactersState extends Equatable {
   List<Object> get props => [];
 }
 
+class EmptyState extends CharactersState {}
+
 class LoadingState extends CharactersState {}
 
 class SuccessState extends CharactersState {

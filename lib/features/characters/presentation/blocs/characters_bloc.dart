@@ -15,7 +15,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
   CharactersBloc({
     required this.charactersUseCase
-  }) : super(LoadingState()) {
+  }) : super(EmptyState()) {
     on<CharactersEvent> (charactersEventObserver);
   }
 
