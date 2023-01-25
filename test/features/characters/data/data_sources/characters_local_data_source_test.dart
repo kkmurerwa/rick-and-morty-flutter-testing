@@ -19,7 +19,7 @@ void main() {
   setUp(() {
     mockDatabase = MockDatabase();
     mockCharactersDao = MockCharactersDao();
-    dataSource = CharactersLocalDataSourceImpl(mockDatabase);
+    dataSource = CharactersLocalDataSourceImpl(database: mockDatabase);
   });
 
   test('should return list of saved characters form database', () async {

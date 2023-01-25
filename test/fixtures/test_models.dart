@@ -4,6 +4,7 @@ import 'package:ramft/features/characters/domain/entities/character.dart';
 const tPage = 1;
 
 const tServerExceptionMessage = "test message";
+const tCacheExceptionMessage = "test message";
 
 const Character tCharacter = Character(
   id: 1,

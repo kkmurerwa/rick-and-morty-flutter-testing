@@ -17,7 +17,7 @@ abstract class CharactersLocalDataSource {
 class CharactersLocalDataSourceImpl implements CharactersLocalDataSource {
   final AppDatabase database;
 
-  CharactersLocalDataSourceImpl(this.database);
+  CharactersLocalDataSourceImpl({required this.database});
 
   @override
   Future<List<CharacterModel>> getCharacters() {
