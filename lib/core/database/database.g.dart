@@ -129,7 +129,7 @@ class _$CharactersDao extends CharactersDao {
   final InsertionAdapter<CharacterModel> _characterModelInsertionAdapter;
 
   @override
-  Future<List<CharacterModel>> findAllCharacters() async {
+  Future<List<CharacterModel>> getAllCharacters() async {
     return _queryAdapter.queryList('SELECT * FROM characters',
         mapper: (Map<String, Object?> row) => CharacterModel(
             id: row['id'] as int,
@@ -163,5 +163,11 @@ class _$CharactersDao extends CharactersDao {
   Future<void> insertCharacter(CharacterModel character) async {
     await _characterModelInsertionAdapter.insert(
         character, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> insertCharacters(List<CharacterModel> characters) async {
+    await _characterModelInsertionAdapter.insertList(
+        characters, OnConflictStrategy.abort);
   }
 }
