@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ramft/core/errors/exceptions.dart';
 import 'package:ramft/core/errors/failures.dart';
-import 'package:ramft/features/characters/data/datasources/characters_data_source.dart';
+import 'package:ramft/features/characters/data/datasources/characters_remote_data_source.dart';
 import 'package:ramft/features/characters/data/models/character_model.dart';
 import 'package:ramft/features/characters/data/repositories/characters_repository_impl.dart';
 import 'package:ramft/features/characters/domain/entities/character.dart';
 
 import '../../../../fixtures/test_models.dart';
 
-class MockCharactersDataSource extends Mock implements CharactersDataSource {}
+class MockCharactersDataSource extends Mock implements CharactersRemoteDataSource {}
 
 void main() {
   late MockCharactersDataSource mockDataSource;

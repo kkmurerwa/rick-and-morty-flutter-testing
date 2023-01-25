@@ -4,16 +4,16 @@ import 'package:ramft/core/errors/exceptions.dart';
 
 import '../models/character_model.dart';
 
-abstract class CharactersDataSource {
+abstract class CharactersRemoteDataSource {
   Future<List<CharacterModel>> getCharacters(int page);
 }
 
 const URL = 'https://rickandmortyapi.com/api/character/?page=';
 
-class CharactersDataSourceImpl implements CharactersDataSource {
+class CharactersRemoteDataSourceImpl implements CharactersRemoteDataSource {
   final http.Client client;
 
-  CharactersDataSourceImpl({required this.client});
+  CharactersRemoteDataSourceImpl({required this.client});
 
   @override
   Future<List<CharacterModel>> getCharacters(int page) async {

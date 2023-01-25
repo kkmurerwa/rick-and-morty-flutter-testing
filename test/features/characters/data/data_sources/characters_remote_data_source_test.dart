@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 import 'package:ramft/core/errors/exceptions.dart';
-import 'package:ramft/features/characters/data/datasources/characters_data_source.dart';
+import 'package:ramft/features/characters/data/datasources/characters_remote_data_source.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../../fixtures/test_models.dart';
@@ -13,12 +13,12 @@ class MockUri extends Mock implements Uri {}
 void main() {
   late MockHttpClient mockHttpClient;
   late MockUri mockUri;
-  late CharactersDataSourceImpl dataSource;
+  late CharactersRemoteDataSourceImpl dataSource;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
     registerFallbackValue(MockUri());
-    dataSource = CharactersDataSourceImpl(
+    dataSource = CharactersRemoteDataSourceImpl(
       client: mockHttpClient,
     );
   });
