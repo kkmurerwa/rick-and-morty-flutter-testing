@@ -1,9 +1,14 @@
 import 'package:ramft/features/characters/domain/entities/character.dart';
+import 'package:floor/floor.dart';
 
+@Entity(tableName: 'characters')
 class CharacterModel extends Character {
+  @primaryKey
+  final int id;
+
 
   const CharacterModel({
-    required int id,
+    required this.id,
     required String name,
     required String status,
     required String species,
