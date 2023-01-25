@@ -20,18 +20,21 @@ class CharactersLocalDataSourceImpl implements CharactersLocalDataSource {
   CharactersLocalDataSourceImpl({required this.database});
 
   @override
-  Future<List<CharacterModel>> getCharacters() {
+  Future<List<CharacterModel>> getCharacters() async {
     try {
-      return database.charactersDao.getAllCharacters();
+      final charactersDao = database.charactersDao;
+      return await charactersDao.getAllCharacters();
     } catch (e) {
       throw CacheException("");
     }
   }
 
   @override
-  Future<void> saveCharacters(List<CharacterModel> charactersToCache) {
+  Future<void> saveCharacters(List<CharacterModel> charactersToCache) async {
     try {
-      return database.charactersDao.insertCharacters(charactersToCache);
+      final charactersDao = database.charactersDao;
+
+      await charactersDao.insertCharacters(charactersToCache);
     } catch (e) {
       throw CacheException("");
     }

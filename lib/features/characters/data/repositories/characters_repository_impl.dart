@@ -24,6 +24,9 @@ class CharactersRepositoryImpl implements CharactersRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteCharacters = await remoteDataSource.getCharacters(page);
+
+        await localDataSource.saveCharacters(remoteCharacters);
+
         return Right(remoteCharacters);
       } on ServerException catch (exception) {
         return Left(ServerFailure(exception.message));

@@ -32,9 +32,15 @@ void main() {
   });
 
   group('hasInternetConnection', () {
+    setUp(() {
+      when(() => networkInfo.isConnected).thenAnswer((_) async => true);
+
+      when(() => mockLocalDataSource.saveCharacters(any()))
+          .thenAnswer((_) async => 1);
+    });
+
     test('should query remote data source for data when getCharacters invoked', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => true);
       when(() => mockRemoteDataSource.getCharacters(any()))
           .thenAnswer((_) async => [tCharacterModel]);
 
@@ -47,7 +53,6 @@ void main() {
 
     test('should return data when getCharacters invoked successfully', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => true);
       when(() => mockRemoteDataSource.getCharacters(any()))
           .thenAnswer((_) async => [tCharacterModel]);
 
@@ -60,9 +65,20 @@ void main() {
       });
     });
 
+    test('should cache data when getCharacters invoked successfully', () async {
+      // arrange
+      when(() => mockRemoteDataSource.getCharacters(any()))
+          .thenAnswer((_) async => [tCharacterModel]);
+
+      // act
+      await repository.getCharacters(tPage);
+
+      // assert
+      verify(() => mockLocalDataSource.saveCharacters([tCharacterModel]));
+    });
+
     test('should return Failure when getCharacters invoked with exception', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => true);
       when(() => mockRemoteDataSource.getCharacters(any()))
           .thenThrow(ServerException(""));
 
@@ -75,7 +91,6 @@ void main() {
 
     test('should pass message given by data source on exception', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => true);
       when(() => mockRemoteDataSource.getCharacters(any()))
           .thenThrow(ServerException(tServerExceptionMessage));
 
@@ -88,9 +103,12 @@ void main() {
   });
 
   group('noInternetConnection', () {
+    setUp(() {
+      when(() => networkInfo.isConnected).thenAnswer((_) async => false);
+    });
+
     test('should query local data source for data when getCharacters invoked with no internet', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => false);
       when(() => mockLocalDataSource.getCharacters())
           .thenAnswer((_) async => [tCharacterModel]);
 
@@ -103,7 +121,6 @@ void main() {
 
     test('should return cached characters when getCharacters invoked with no internet', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => false);
       when(() => mockLocalDataSource.getCharacters())
           .thenAnswer((_) async => [tCharacterModel]);
 
@@ -118,7 +135,6 @@ void main() {
 
     test('should return Failure when getCharacters invoked with no internet and exception', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => false);
       when(() => mockLocalDataSource.getCharacters())
           .thenThrow(CacheException(""));
 
@@ -131,7 +147,6 @@ void main() {
 
     test('should pass message given by data source on exception if no internet', () async {
       // arrange
-      when(() => networkInfo.isConnected).thenAnswer((_) async => false);
       when(() => mockLocalDataSource.getCharacters())
           .thenThrow(CacheException(tCacheExceptionMessage));
 
