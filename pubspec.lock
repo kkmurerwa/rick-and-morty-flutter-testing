@@ -654,7 +654,7 @@ packages:
     source: hosted
     version: "2.4.1"
   sqflite_common_ffi:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqflite_common_ffi
       url: "https://pub.dartlang.org"
