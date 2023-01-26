@@ -1,17 +1,17 @@
 import 'package:ramft/core/database/database.dart';
 import 'package:ramft/core/errors/exceptions.dart';
-import 'package:ramft/features/characters/data/models/character_model.dart';
+import 'package:ramft/features/characters/domain/entities/character.dart';
 
 abstract class CharactersLocalDataSource {
   /// Gets the cached [List<CharacterModel>] which was previously saved
   ///
   /// Throws [CacheException] if no cached data is present
-  Future<List<CharacterModel>> getCharacters();
+  Future<List<Character>> getCharacters();
 
   /// Saves a [List<CharacterModel>] instance for future retrieval
   ///
   /// Throws [CacheException] for all error codes
-  Future<void> saveCharacters(List<CharacterModel> charactersToCache);
+  Future<void> saveCharacters(List<Character> charactersToCache);
 }
 
 class CharactersLocalDataSourceImpl implements CharactersLocalDataSource {
@@ -20,7 +20,7 @@ class CharactersLocalDataSourceImpl implements CharactersLocalDataSource {
   CharactersLocalDataSourceImpl({required this.database});
 
   @override
-  Future<List<CharacterModel>> getCharacters() async {
+  Future<List<Character>> getCharacters() async {
     try {
       final charactersDao = database.charactersDao;
       return await charactersDao.getAllCharacters();
@@ -30,14 +30,10 @@ class CharactersLocalDataSourceImpl implements CharactersLocalDataSource {
   }
 
   @override
-  Future<void> saveCharacters(List<CharacterModel> charactersToCache) async {
-    try {
-      final charactersDao = database.charactersDao;
+  Future<void> saveCharacters(List<Character> charactersToCache) async {
+    final charactersDao = database.charactersDao;
 
-      await charactersDao.insertCharacters(charactersToCache);
-    } catch (e) {
-      throw CacheException("");
-    }
+    await charactersDao.insertCharacters(charactersToCache);
   }
 
 

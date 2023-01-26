@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/character.dart';
@@ -17,7 +18,18 @@ class CharactersDisplay extends StatelessWidget {
         return ListTile(
           title: Text(characters[index].name),
           subtitle: Text(characters[index].status),
-          leading: Image.network(characters[index].image),
+          leading: SizedBox(
+            width: 50,
+            height: 50,
+            child: CachedNetworkImage(
+              progressIndicatorBuilder: (context, url, progress) => Center(
+                child: CircularProgressIndicator(
+                  value: progress.progress,
+                ),
+              ),
+              imageUrl: characters[index].image,
+            ),
+          ),
         );
       },
     );

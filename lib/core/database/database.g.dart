@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `characters` (`id` INTEGER NOT NULL, `id` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT NOT NULL, `type` TEXT NOT NULL, `gender` TEXT NOT NULL, `image` TEXT NOT NULL, `created` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `characters` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT NOT NULL, `type` TEXT NOT NULL, `gender` TEXT NOT NULL, `image` TEXT NOT NULL, `created` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -104,11 +104,10 @@ class _$CharactersDao extends CharactersDao {
     this.database,
     this.changeListener,
   )   : _queryAdapter = QueryAdapter(database, changeListener),
-        _characterModelInsertionAdapter = InsertionAdapter(
+        _characterInsertionAdapter = InsertionAdapter(
             database,
             'characters',
-            (CharacterModel item) => <String, Object?>{
-                  'id': item.id,
+            (Character item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
                   'status': item.status,
@@ -126,12 +125,12 @@ class _$CharactersDao extends CharactersDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<CharacterModel> _characterModelInsertionAdapter;
+  final InsertionAdapter<Character> _characterInsertionAdapter;
 
   @override
-  Future<List<CharacterModel>> getAllCharacters() async {
+  Future<List<Character>> getAllCharacters() async {
     return _queryAdapter.queryList('SELECT * FROM characters',
-        mapper: (Map<String, Object?> row) => CharacterModel(
+        mapper: (Map<String, Object?> row) => Character(
             id: row['id'] as int,
             name: row['name'] as String,
             status: row['status'] as String,
@@ -143,9 +142,9 @@ class _$CharactersDao extends CharactersDao {
   }
 
   @override
-  Stream<CharacterModel?> findCharacterById(int id) {
+  Stream<Character?> findCharacterById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM characters WHERE id = ?1',
-        mapper: (Map<String, Object?> row) => CharacterModel(
+        mapper: (Map<String, Object?> row) => Character(
             id: row['id'] as int,
             name: row['name'] as String,
             status: row['status'] as String,
@@ -160,14 +159,8 @@ class _$CharactersDao extends CharactersDao {
   }
 
   @override
-  Future<void> insertCharacter(CharacterModel character) async {
-    await _characterModelInsertionAdapter.insert(
-        character, OnConflictStrategy.abort);
-  }
-
-  @override
-  Future<void> insertCharacters(List<CharacterModel> characters) async {
-    await _characterModelInsertionAdapter.insertList(
-        characters, OnConflictStrategy.abort);
+  Future<void> insertCharacters(List<Character> characters) async {
+    await _characterInsertionAdapter.insertList(
+        characters, OnConflictStrategy.ignore);
   }
 }

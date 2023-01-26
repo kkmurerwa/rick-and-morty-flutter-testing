@@ -8,6 +8,7 @@ import 'package:ramft/features/characters/domain/usecases/get_characters_usecase
 import 'package:ramft/features/characters/presentation/blocs/characters_bloc.dart';
 
 import 'core/database/database.dart';
+import 'core/network/network_info.dart';
 import 'features/characters/data/datasources/characters_local_data_source.dart';
 
 // Service locator instance
@@ -52,6 +53,7 @@ void initFeatures() {
 
 void initCore() {
   // Core
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 }
 
 Future<void> initExternal() async {

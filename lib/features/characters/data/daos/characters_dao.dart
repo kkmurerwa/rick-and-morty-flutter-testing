@@ -1,17 +1,14 @@
 import 'package:floor/floor.dart';
-import 'package:ramft/features/characters/data/models/character_model.dart';
+import 'package:ramft/features/characters/domain/entities/character.dart';
 
 @dao
 abstract class CharactersDao {
   @Query('SELECT * FROM characters')
-  Future<List<CharacterModel>> getAllCharacters();
+  Future<List<Character>> getAllCharacters();
 
   @Query('SELECT * FROM characters WHERE id = :id')
-  Stream<CharacterModel?> findCharacterById(int id);
+  Stream<Character?> findCharacterById(int id);
 
-  @insert
-  Future<void> insertCharacter(CharacterModel character);
-
-  @insert
-  Future<void> insertCharacters(List<CharacterModel> characters);
+  @Insert(onConflict: OnConflictStrategy.ignore)
+  Future<void> insertCharacters(List<Character> characters);
 }
