@@ -24,8 +24,8 @@ void main() {
     registerFallbackValue(MockParams());
   });
 
-  test('should ensure initial state is LoadingState', () {
-    expect(charactersBloc.state, equals(LoadingState()));
+  test('should ensure initial state is EmptyState', () {
+    expect(charactersBloc.state, equals(EmptyState()));
   });
 
   test('should call getCharactersUseCase when GetCharactersEvent added', () async {
